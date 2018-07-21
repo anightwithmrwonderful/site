@@ -1,0 +1,10 @@
+@import '_variables.scss';
+
+.container {
+  max-width: $section-max-width;
+  margin: 0px auto;
+  padding: 0px 5%;
+  @media screen and (min-width: $tablet-min-width) {
+    padding: 0px 2.5%;
+  }
+}

@@ -1,0 +1,69 @@
+.section {
+  text-align: center;
+  max-width: 800px;
+  margin: 0px auto;
+}
+
+.banner {
+  display: block;
+  width: 50%;
+  min-width: 200px;
+  max-width: 400px;
+  margin: 7.5% auto 0px auto;
+}
+
+.headline {
+  margin-top: 47px;
+  font-size: 36px;
+  line-height: 51px;
+}
+
+.subHeadline {
+  display: block;
+  margin-top: 7px;
+  font-family: 'Inconsolata';
+  &:before {
+    content: '– '
+  }
+}
+
+.headshot {
+  margin-top: 70px;
+  border: 2px solid #c6a253;
+}
+
+.headshotCredit {
+  text-align: left;
+  text-transform: none;
+}
+
+.bio {
+  display: block;
+  font-family: 'Inconsolata';
+  text-transform: none;
+  text-align: left;
+  text-indent: 25px;
+  margin: 60px auto 0px auto;
+}
+
+.reviewSectionHeadline {
+  display: block;
+  margin-top: 50px;
+  line-height: 27px;
+}
+
+.review {
+  margin-top: 28px;
+  text-align: left;
+  text-transform: none;
+  font-family: 'Inconsolata';
+}
+
+.reviewer {
+  text-align: left;
+  text-transform: none;
+  font-size: 14px;
+  &:before {
+    content: '– '
+  }
+}
