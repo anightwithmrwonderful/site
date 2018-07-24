@@ -1,9 +1,0 @@
-@import '_variables.scss';
-
-.container {
-  width: 100%;
-  padding: 2.5%;
-  @media screen and (min-width: $tablet-min-width) {
-    padding: 1.25%;
-  }
-}

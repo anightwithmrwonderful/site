@@ -1,0 +1,32 @@
+@import '_variables.scss';
+
+.container {
+  border: 1px solid $contrast-color;
+  margin-top: 30px;
+  padding: 20px;
+}
+
+.title {
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.date {
+  font-family: 'Inconsolata';
+}
+
+.time {
+  font-family: 'Inconsolata';
+}
+
+.place {
+  font-family: 'Inconsolata';
+  &:before {
+    content: 'at '
+  }
+}
+
+.description {
+  font-family: 'Inconsolata';
+  text-transform: none;
+}

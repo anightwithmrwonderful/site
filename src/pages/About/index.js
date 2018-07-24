@@ -1,6 +1,5 @@
 import React from 'react'
-import { Section, TextOrLink, Masonry } from 'components'
-// import shortid from 'shortid'
+import { Section, LinkOrDiv } from 'components'
 import styles from './styles.module.scss'
 
 export default () => (
@@ -20,7 +19,7 @@ export default () => (
           className={ styles.headline }
         />
 
-        <TextOrLink
+        <LinkOrDiv
           href='https://anightwithmrwonderful.com'
           children={ `Now available through online music distributors and right here on our own website.` }
           className={ styles.subHeadline }
@@ -76,27 +75,6 @@ export default () => (
 
       </div>
     </Section>
-
-    <Masonry.Container>
-      {
-        // [
-        //   {
-        //     backgroundImage: require(),
-        //     title: 
-        //   }
-        // ].map(({
-        //   backgroundImage,
-        //   title,
-        // }) => (
-        //   <Masonry.Item>
-        //     <div>
-        //       <div style={{ backgroundImage }} />
-        //       <div>{ title }</div>
-        //     </div>
-        //   </Masonry.Item>
-        // ))
-      }
-    </Masonry.Container>
 
   </div>
 )

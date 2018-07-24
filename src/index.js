@@ -1,7 +1,7 @@
 import 'normalize.css'
 import './styles.scss'
 import React, { Component } from 'react'
-import { Router } from '@reach/router'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Main, Nav, Footer } from 'components'
 import { About, Events, Media, Contact } from 'pages'
 import WebFont from 'webfontloader'
@@ -12,16 +12,18 @@ class App extends Component {
 
   render() {
     return (
-      <Main>
-        <Nav />
-        <Router>
-          <About path='/' />
-          <Events path='/shows' />
-          <Media path='/media' />
-          <Contact path='/contact' />
-        </Router>
-        <Footer />
-      </Main>
+      <Router>
+        <div>
+          <Nav />
+          <Main>
+            <Route exact path='/' component={ About } />
+            <Route path='/shows' component={ Events } />
+            <Route path='/media' component={ Media } />
+            <Route path='/contact' component={ Contact } />
+          </Main>
+          <Footer />
+        </div>
+      </Router>
     )
   }
 

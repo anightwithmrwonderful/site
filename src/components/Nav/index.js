@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './styles.module.scss'
-import { Link } from '@reach/router'
+import { NavLink } from 'react-router-dom'
 import shortid from 'shortid'
 
 export default ({ style }) => (
@@ -10,6 +10,7 @@ export default ({ style }) => (
         [  {
           to: '/',
           children: 'About',
+          onlyActiveOnIndex: true,
         }, {
           to: '/shows',
           children: 'Shows',
@@ -19,15 +20,13 @@ export default ({ style }) => (
         }, {
           to: '/contact',
           children: 'Contact',
-        }, ].map((props) => (
-          <Link
+        }, ].map((props, i) => (
+          <NavLink
+            exact
             key={ shortid.generate() }
             { ...props }
-            getProps={({ isCurrent }) => ({
-              className: isCurrent
-                ? styles.active
-                : styles.link
-            })}
+            className={ styles.link }
+            activeClassName={ styles.active }
           />
         ))
       }

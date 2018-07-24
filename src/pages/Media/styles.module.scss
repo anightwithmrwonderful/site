@@ -1,0 +1,43 @@
+@import '_variables.scss';
+
+.masonrySection {
+  max-width: $section-max-width;
+  margin: 0px auto;
+  > div {
+    padding: 2.5%;
+    @media screen and (min-with: $tablet-min-width) {
+      padding: 1.25%;
+    }
+  }
+}
+
+.sectionTitle {
+  display: block;
+  text-align: center;
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
+  font-size: 24px;
+  line-height: 24px;
+}
+
+.masonryItem {
+
+  width: 95%;
+  margin: 2.5%;
+
+  @media screen and (min-width: 481px) and (max-width: 600px) {
+    width: 47.5%;
+    margin: 1.25%;
+  }
+
+  @media screen and (min-width: 601px) and (max-width: 720px) {
+    width: 30.8333%;
+    margin: 1.25%;
+  }
+
+  @media screen and (min-width: 721px) {
+    width: 22.5%;
+    margin: 1.25%;
+  }
+
+}

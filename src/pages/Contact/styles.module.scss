@@ -1,0 +1,53 @@
+@import '_variables.scss';
+
+.form {
+
+  margin: 30px 0px;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 0px;
+  }
+
+  input, textarea, button {
+    background-color: #000;
+    border-width: 0px;
+    -webkit-appearance: none;
+    border: 1px solid $contrast-color;
+    padding: 10px;
+    margin-top: 10px;
+    font-family: 'Inconsolata';
+    border-radius: 0px;
+  }
+
+  ::placeholder {
+    color: $contrast-color;
+    opacity: .5;
+  }
+
+  textarea {
+    resize: none;
+    height: 300px;
+  }
+
+}
+
+.error {
+  margin-top: 10px;
+  font-family: 'Inconsolata';
+}
+
+.send {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-end;
+  button {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+}
