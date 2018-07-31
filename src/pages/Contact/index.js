@@ -31,7 +31,6 @@ export default class Contact extends Component {
               <input
                 type='text'
                 name='name'
-                value={ this.state.name }
                 onChange={ this.onChange }
                 placeholder={ `Mr. Wonderful's Friend` }
               />
@@ -42,7 +41,6 @@ export default class Contact extends Component {
               <input
                 type='email'
                 name='email'
-                value={ this.state.email }
                 onChange={ this.onChange }
                 placeholder={ `mrwonderfulsfriend@gmail.com` }
               />
@@ -52,7 +50,6 @@ export default class Contact extends Component {
               <div>Message:</div>
               <textarea
                 name='message'
-                value={ this.state.message }
                 onChange={ this.onChange }
                 placeholder={ `Fantastic show the other night. Let's grab a drink this week.` }
               />
