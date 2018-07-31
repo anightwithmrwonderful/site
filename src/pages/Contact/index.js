@@ -23,8 +23,7 @@ export default class Contact extends Component {
           <form
             name="contact"
             method="post"
-            data-netlify="true"
-            data-netlify-honeypot="bot-field"
+            netlfiy
             className={ styles.form }
           >
             <label>
