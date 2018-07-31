@@ -7,11 +7,11 @@ export default () => (
     <div className={ styles.preFooter } />
     <footer className={ styles.container }>
       <div className={ styles.links }>
-        <Link>First Link</Link>
+        <Link href='https://www.facebook.com/anightwithmrwonderful/'>Facebook</Link>
         <div>|</div>
-        <Link>Second Link</Link>
+        <Link href='https://www.instagram.com/anightwithmrwonderful/'>Instagram</Link>
         <div>|</div>
-        <Link>Third Link</Link>
+        <Link href='https://soundcloud.com/solomon-kee'>SoundCloud</Link>
       </div>
       <div className={ styles.copyright }>
         { `Copyright © ${ (new Date()).getFullYear() }, Mr. Wonderful` }
