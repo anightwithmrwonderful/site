@@ -14,6 +14,7 @@ export default class Contact extends Component {
     emailInvalid: true,
     message: '',
     messageEmpty: true,
+    sendStage: 'send',
   }
 
   render() {
@@ -21,10 +22,8 @@ export default class Contact extends Component {
       <Section>
         <div>
           <form
-            name="contact"
-            method="post"
-            netlfiy
             className={ styles.form }
+            onSubmit={ this.onSubmit }
           >
             <label>
               <div>Your Name:</div>
@@ -57,9 +56,8 @@ export default class Contact extends Component {
             </label>
             <div className={ styles.send }>
               <button
-                disabled={ !this.state.nameEmpty && this.state.emailValid && !this.state.emailEmpty && !this.state.messageEmpty }
                 type='submit'
-                children='SEND'
+                children={ this.state.sendStage }
               />
             </div>
           </form>
@@ -79,6 +77,23 @@ export default class Contact extends Component {
         messageEmpty: !(this.state.message && this.state.message !== ''),
       })
     })
+  }
+
+  onSubmit = e => {
+    if(!this.state.nameEmpty && this.state.emailValid && !this.state.emailEmpty && !this.state.messageEmpty && !this.state.submitting) {
+      this.setState({ sendStage: 'sending' })
+      fetch('/', {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encodeFormData({ "form-name": "contact", ...this.state })
+      }).then(success => {
+        this.setState({ sendStage: 'sent' })
+        console.log(success)
+      }).catch(error => {
+        console.log(error)
+      })
+    }
+    e.preventDefault()
   }
 
 }
