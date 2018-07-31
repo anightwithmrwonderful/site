@@ -8,7 +8,7 @@ import styles from './styles.module.scss'
 // register: 'http://www.billymcguigan.com/tour-schedule/',
 // description:
 
-export default ({ title, date, time, registerUrl, description, place, }) => (
+export default ({ title, date, time, registerUrl, description, place, howLong, }) => (
   <div className={ styles.container }>
     <Link href={ registerUrl }>
       <div
@@ -20,7 +20,7 @@ export default ({ title, date, time, registerUrl, description, place, }) => (
         className={ styles.date }
       />
       <div
-        children={ time }
+        children={ `${time} (${ howLong })` }
         className={ styles.time }
       />
       <div

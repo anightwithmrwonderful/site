@@ -1,73 +1,58 @@
-import React from 'react'
-import shortid from 'shortid'
+import React, { Component } from 'react'
 import { Section, Event } from 'components'
 import styles from './styles.module.scss'
+import * as contentful from 'contentful'
 
-const events = [{
-  image: 'https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/8/2018/01/15155312/iStock-667709450.jpg',
-  title: 'the event title',
-  date: 'Wednesday, August 1st, 2018',
-  time: '7:30-10:00pm',
-  place: 'Location of the event',
-  registerUrl: 'http://www.billymcguigan.com/tour-schedule/',
-  description: `Billy McGuigan as you’ve never seen him before. Classic rock tunes with a big band twist; big band standards with a rock and roll twist. Backed by a full horn section and an all star line up of Omaha’s finest musicians, Billy’s brand new show will have Playhouse audiences rocking like never before. Frank Sinatra? Check. The Beatles? Check. Harry Connick, Jr? Check. Billy Joel? Check! Fresh re-arrangements of rock and jazz standards performed as only Billy can. It’s rock with a twist!`,
-}, {
-  image: 'https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/8/2018/01/15155312/iStock-667709450.jpg',
-  title: 'the event title',
-  date: 'Wednesday, August 1st, 2018',
-  time: '7:30-10:00pm',
-  place: 'Location of the event',
-  registerUrl: 'http://www.billymcguigan.com/tour-schedule/',
-  description: `Billy McGuigan as you’ve never seen him before. Classic rock tunes with a big band twist; big band standards with a rock and roll twist. Backed by a full horn section and an all star line up of Omaha’s finest musicians, Billy’s brand new show will have Playhouse audiences rocking like never before. Frank Sinatra? Check. The Beatles? Check. Harry Connick, Jr? Check. Billy Joel? Check! Fresh re-arrangements of rock and jazz standards performed as only Billy can. It’s rock with a twist!`,
-}, {
-  image: 'https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/8/2018/01/15155312/iStock-667709450.jpg',
-  title: 'the event title',
-  date: 'Wednesday, August 1st, 2018',
-  time: '7:30-10:00pm',
-  place: 'Location of the event',
-  registerUrl: 'http://www.billymcguigan.com/tour-schedule/',
-  description: `Billy McGuigan as you’ve never seen him before. Classic rock tunes with a big band twist; big band standards with a rock and roll twist. Backed by a full horn section and an all star line up of Omaha’s finest musicians, Billy’s brand new show will have Playhouse audiences rocking like never before. Frank Sinatra? Check. The Beatles? Check. Harry Connick, Jr? Check. Billy Joel? Check! Fresh re-arrangements of rock and jazz standards performed as only Billy can. It’s rock with a twist!`,
-}, {
-  image: 'https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/8/2018/01/15155312/iStock-667709450.jpg',
-  title: 'the event title',
-  date: 'Wednesday, August 1st, 2018',
-  time: '7:30-10:00pm',
-  place: 'Location of the event',
-  registerUrl: 'http://www.billymcguigan.com/tour-schedule/',
-  description: `Billy McGuigan as you’ve never seen him before. Classic rock tunes with a big band twist; big band standards with a rock and roll twist. Backed by a full horn section and an all star line up of Omaha’s finest musicians, Billy’s brand new show will have Playhouse audiences rocking like never before. Frank Sinatra? Check. The Beatles? Check. Harry Connick, Jr? Check. Billy Joel? Check! Fresh re-arrangements of rock and jazz standards performed as only Billy can. It’s rock with a twist!`,
-}, {
-  image: 'https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/8/2018/01/15155312/iStock-667709450.jpg',
-  title: 'the event title',
-  date: 'Wednesday, August 1st, 2018',
-  time: '7:30-10:00pm',
-  place: 'Location of the event',
-  registerUrl: 'http://www.billymcguigan.com/tour-schedule/',
-  description: `Billy McGuigan as you’ve never seen him before. Classic rock tunes with a big band twist; big band standards with a rock and roll twist. Backed by a full horn section and an all star line up of Omaha’s finest musicians, Billy’s brand new show will have Playhouse audiences rocking like never before. Frank Sinatra? Check. The Beatles? Check. Harry Connick, Jr? Check. Billy Joel? Check! Fresh re-arrangements of rock and jazz standards performed as only Billy can. It’s rock with a twist!`,
-}, {
-  image: 'https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/8/2018/01/15155312/iStock-667709450.jpg',
-  title: 'the event title',
-  date: 'Wednesday, August 1st, 2018',
-  time: '7:30-10:00pm',
-  place: 'Location of the event',
-  registerUrl: 'http://www.billymcguigan.com/tour-schedule/',
-  description: `Billy McGuigan as you’ve never seen him before. Classic rock tunes with a big band twist; big band standards with a rock and roll twist. Backed by a full horn section and an all star line up of Omaha’s finest musicians, Billy’s brand new show will have Playhouse audiences rocking like never before. Frank Sinatra? Check. The Beatles? Check. Harry Connick, Jr? Check. Billy Joel? Check! Fresh re-arrangements of rock and jazz standards performed as only Billy can. It’s rock with a twist!`,
-}]
+export default class extends Component {
 
-export default () => (
-  <div>
+  state = {
+    contentLoaded: false,
+  }
 
-    <Section>
-      <div className={ styles.section }>
-        {
-          events.map(props => (
-            <Event
-              { ...props }
-              key={ shortid.generate() }
-            />
-          ))
-        }
+  render() {
+    return this.state && this.state.contentLoaded ? (
+      <div>
+
+        <Section>
+          <div className={ styles.section }>
+            {
+              this.state.events.map(props => {
+                const date = new Date(props.when)
+                let dd = date.getDate()
+                let mm = date.getMonth() + 1
+                const yyyy = date.getFullYear()
+                if(dd < 10) dd = '0' + dd
+                if(mm < 10) mm = '0' + mm
+                const displayDate = [dd, mm, yyyy].join('/')
+                const displayTime = [ date.getHours(), date.getMinutes() ].join(':')
+                return (
+                  <Event
+                    title={ props.title }
+                    date={ displayDate }
+                    time={ displayTime }
+                    howLong={ props.howLong }
+                    description={ props.description }
+                    place={ props.location }
+                    registerUrl={ props.url }
+                  />
+                )
+              })
+            }
+          </div>
+        </Section>
+
       </div>
-    </Section>
+    ) : null
+  }
 
-  </div>
-)
+  componentDidMount() {
+    const client = contentful.createClient({
+      space: 'drbs7qyt0aoj',
+      accessToken: 'ec1b1b32f2004efc94a0cb31896988632851d546a618842a68ed1d6351619995'
+    })
+    client.getEntries({ content_type: 'eventsPage' }).then(response => {
+      this.setState({ events: response.items[0].fields.event.map(event => event.fields), contentLoaded: true }, () => console.log(this.state))
+    })
+  }
+
+}

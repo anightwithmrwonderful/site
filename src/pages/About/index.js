@@ -1,80 +1,88 @@
-import React from 'react'
+import React, { Component, Fragment } from 'react'
 import { Section, LinkOrDiv } from 'components'
 import styles from './styles.module.scss'
+import * as contentful from 'contentful'
 
-export default () => (
-  <div>
+export default class extends Component {
 
-    <Section>
-      <div className={ styles.section }>
+  state = { contentLoaded: false }
 
-        <img
-          src={ require('assets/images/banner.png') }
-          alt='Banner'
-          className={ styles.banner }
-        />
+  render() {
+    return this.state && this.state.contentLoaded ? (
+      <div>
 
-        <div
-          children={ `“Vehicle The Remix,” The Latest Single` }
-          className={ styles.headline }
-        />
+        <Section>
+          <div className={ styles.section }>
 
-        <LinkOrDiv
-          href='https://anightwithmrwonderful.com'
-          children={ `Now available through online music distributors and right here on our own website.` }
-          className={ styles.subHeadline }
-        />
+            <img
+              src={ require('assets/images/banner.png') }
+              alt='Banner'
+              className={ styles.banner }
+            />
 
-        <img
-          src={ require('assets/images/headshot.jpg') }
-          alt='Headshot'
-          className={ styles.headshot }
-        />
+            <div
+              children={ this.state.headline }
+              className={ styles.headline }
+            />
 
-        <div
-          children={ `Karen Sterling Photography ` }
-          className={ styles.headshotCredit }
-        />
+            <LinkOrDiv
+              href={ this.state.subheadlineUrl ? this.state.subheadlineUrl : null }
+              children={ this.state.subheadline }
+              className={ styles.subHeadline }
+            />
 
-        <p
-          children={ `NYC based writer, producer, and actor, Kee has played numerous roles around the country in shows like DREAMGIRLS, AIN’T MISBHAVIN, CHICAGO, and many more. His most memorable role is that of Sammy Davis Jr. in FLY ME TO THE MOON, THE RAT PACK LOUNGE, and THE PACK. In 2011 Kee began working on his own project which was titled I’M JUST HERE TO MAKE THE WORLD TASTE GOOD and it premiered at Seven Angels Theatre in Waterbury, CT on August 11th of 2012. After a successful run he decided to bring it to New York City and the show debuted on March 9th of 2013 and played to a sold out house. In 2013 a revamped show covering the Sammy Davis Jr song book, under the title A NIGHT WITH MR. WONDERFUL made its way to Interlakes Theatre. The show has continued to have an abundance of success and has traveled around the country.` }
-          className={ styles.bio }
-        />
+            <img
+              src={ this.state.landingImage.fields.file.fields.file.url }
+              alt='Headshot'
+              className={ styles.headshot }
+            />
 
-        <div
-          children={ `Now that we've introduced Kee, here's what others had to say:` }
-          className={ styles.reviewSectionHeadline }
-        />
+            <div
+              children={ this.state.landingImage.fields.author }
+              className={ styles.headshotCredit }
+            />
 
-        <div
-          children={ `Attended the show this past weekend! You are star! Great job. Just wanted to let you know how much we enjoyed watching you!` }
-          className={ styles.review }
-        />
-        <div
-          children={ `Dave Elias, Investigative Reporter NBC 2 WBBH-TV` }
-          className={ styles.reviewer }
-        />
+            <p
+              children={ this.state.bio }
+              className={ styles.bio }
+            />
 
-        <div
-          children={ `I got a call yesterday from one of our business advertisers who not only saw the show, but said that the WHOLE TOWN is talking about your show since last weekend! And I've gotten notes that say that the summer season was great and you were the icing on the cake! So glad we did this.` }
-          className={ styles.review }
-        />
-        <div
-          children={ `Nancy Sagrestano Barry, Executive Producer Interlakes Theatre` }
-          className={ styles.reviewer }
-        />
+            <div
+              children={ this.state.reviewSectionHeadline }
+              className={ styles.reviewSectionHeadline }
+            />
 
-        <div
-          children={ `A highlight was “I’ve Got the World on a String” sung in the style of a long list of noted singers that included Jimmy Durante, Nat King Cole, Louis Armstrong, Frank Sinatra, Billie Holliday, and even Mae West!` }
-          className={ styles.review }
-        />
-        <div
-          children={ `Nancy Sasso Janis, OnStage Critic` }
-          className={ styles.reviewer }
-        />
+            {
+              this.state.reviews.map(review => (
+                <Fragment>
+                  <div
+                    children={ review.fields.body }
+                    className={ styles.review }
+                  />
+                  <div
+                    children={ review.fields.author }
+                    className={ styles.reviewer }
+                  />
+                </Fragment>
+              ))
+            }
+
+          </div>
+        </Section>
 
       </div>
-    </Section>
+    ) : null
+  }
 
-  </div>
-)
+  componentDidMount() {
+    const client = contentful.createClient({
+      space: 'drbs7qyt0aoj',
+      accessToken: 'ec1b1b32f2004efc94a0cb31896988632851d546a618842a68ed1d6351619995'
+    })
+    client.getEntries({ content_type: 'text' }).then(response => {
+      console.log(response)
+      this.setState({ ...response.items[0].fields, contentLoaded: true }, () => console.log(this.state))
+    })
+  }
+
+}

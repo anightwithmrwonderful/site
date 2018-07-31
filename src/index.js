@@ -5,8 +5,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Main, Nav, Footer } from 'components'
 import { About, Events, Media, Contact } from 'pages'
 import WebFont from 'webfontloader'
-import ReactDOM from 'react-dom'
-import registerServiceWorker from 'utilities/registerServiceWorker'
+import { hydrate, render } from 'react-dom'
 
 class App extends Component {
 
@@ -41,5 +40,10 @@ class App extends Component {
   
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
-registerServiceWorker()
+
+const rootElement = document.getElementById('root')
+if(rootElement.hasChildNodes()) {
+  hydrate(<App />, rootElement)
+} else {
+  render(<App />, root)
+}

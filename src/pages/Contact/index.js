@@ -21,7 +21,10 @@ export default class Contact extends Component {
       <Section>
         <div>
           <form
-            onSubmit={ this.onSubmit }
+            name="contact"
+            method="post"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
             className={ styles.form }
           >
             <label>
@@ -58,6 +61,7 @@ export default class Contact extends Component {
             </label>
             <div className={ styles.send }>
               <button
+                disabled={ !this.state.nameEmpty && this.state.emailValid && !this.state.emailEmpty && !this.state.messageEmpty }
                 type='submit'
                 children='SEND'
               />
@@ -79,35 +83,6 @@ export default class Contact extends Component {
         messageEmpty: !(this.state.message && this.state.message !== ''),
       })
     })
-  }
-
-  onSubmit = async (e) => {
-
-    this.setState({
-      nameEmpty: !(this.state.name && this.state.name !== ''),
-      emailValid: EmailValidator.validate(this.state.email),
-      emailEmpty: !(this.state.email && this.state.email !== ''),
-      messageEmpty: !(this.state.message && this.state.message !== ''),
-    }, async () => {
-
-      if(!this.state.nameEmpty && this.state.emailValid && !this.state.emailEmpty && !this.state.messageEmpty) {
-        const response = await fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: encodeFormData({ 'form-name': 'contact', ...this.state }),
-        })
-    
-        if(response.error) {
-          console.error(response.error)
-        }
-    
-        console.log(`Success: ${ response.success }`)
-      }
-
-    })
-
-    e.preventDefault()
-
   }
 
 }
