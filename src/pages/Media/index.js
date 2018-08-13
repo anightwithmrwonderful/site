@@ -29,7 +29,7 @@ export default class extends Component {
                       <div className={ styles.masonryItem }>
                         <ImageZoom
                           image={{
-                            src: `${ url }?fit=thumb`
+                            src: `${ url }?fit=thumb&f=face`
                           }}
                           zoomImage={{
                             src: url
