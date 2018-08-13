@@ -23,18 +23,20 @@ export default class extends Component {
                     group.media.map(({
                       url,
                       title,
-                    }) => (
+                    }) => {
+                      console.log(url)
+                      return (
                       <div className={ styles.masonryItem }>
                         <ImageZoom
                           image={{
-                            src: url
+                            src: `${ url }?fit=thumb`
                           }}
                           zoomImage={{
                             src: url
                           }}
                         />
                       </div>
-                    ))
+                    )})
                   }
                 </Masonry>
               </Fragment>
