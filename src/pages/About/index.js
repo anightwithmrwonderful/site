@@ -53,7 +53,7 @@ export default class extends Component {
             />
 
             {
-              this.state.reviews.map(review => (
+              this.state.reviews.map(review => review.fields && review.fields.body ? (
                 <Fragment>
                   <div
                     children={ review.fields.body }
@@ -64,7 +64,7 @@ export default class extends Component {
                     className={ styles.reviewer }
                   />
                 </Fragment>
-              ))
+              ) : null)
             }
 
           </div>
